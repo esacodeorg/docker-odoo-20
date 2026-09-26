@@ -10,7 +10,9 @@ services:
       - db
     ports:
       - "8069:8069"
-      - "8072:8072" # long polling, utile seulement si workers > 0
+      # Long polling : n'ecoute qu'avec workers > 0. A decommenter le jour ou
+      # vous passez en multi-processus.
+      # - "8072:8072"
     volumes:
       - ./odoo/config:/etc/odoo:rw
       - ./odoo/config/odoo.conf:/etc/odoo/odoo.conf

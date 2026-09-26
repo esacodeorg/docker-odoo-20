@@ -221,11 +221,23 @@ dans l'image. Vous n'avez jamais à les copier.
 | | |
 |---|---|
 | Odoo | 8069 |
-| Long polling | 8072 |
+| Long polling | 8072, non publié |
 
-Le 8072 n'est ouvert qu'en mode multi-processus, c'est-à-dire avec
-`workers > 0` dans la configuration. En mode threadé — le défaut — tout passe
-par 8069 et le 8072 ne répond pas : c'est normal.
+Le 8072 n'écoute qu'en mode multi-processus, c'est-à-dire avec `workers > 0`
+dans la configuration. En mode threadé — le défaut — tout passe par 8069. Il
+n'est donc pas publié : la ligne est présente mais commentée dans
+`docker-compose.yml`, à décommenter le jour où vous passez en
+multi-processus.
+
+Sous Windows, le publier peut même empêcher le démarrage : Hyper-V réserve
+des plages de ports, souvent 8051 à 8150, et Docker ne peut pas s'y lier.
+Le message est alors « ports are not available […] An attempt was made to
+access a socket in a way forbidden by its access permissions ». La liste des
+plages réservées se lit avec :
+
+```
+netsh interface ipv4 show excludedportrange protocol=tcp
+```
 
 ---
 
@@ -428,11 +440,22 @@ image. You never have to copy them.
 | | |
 |---|---|
 | Odoo | 8069 |
-| Long polling | 8072 |
+| Long polling | 8072, not published |
 
-8072 only opens in multi-process mode, that is with `workers > 0` in the
-configuration. In threaded mode — the default — everything goes through 8069
-and 8072 stays silent: that is expected.
+8072 only listens in multi-process mode, that is with `workers > 0` in the
+configuration. In threaded mode — the default — everything goes through 8069.
+It is therefore not published: the line is present but commented out in
+`docker-compose.yml`, to be uncommented the day you switch to multi-process.
+
+On Windows, publishing it can even prevent startup: Hyper-V reserves port
+ranges, often 8051 to 8150, and Docker cannot bind inside them. The message
+then reads "ports are not available […] An attempt was made to access a
+socket in a way forbidden by its access permissions". List the reserved
+ranges with:
+
+```
+netsh interface ipv4 show excludedportrange protocol=tcp
+```
 
 ---
 
