@@ -1,5 +1,5 @@
 FROM odoo:20
-LABEL MAINTAINER="contact@esacode.org"
+LABEL MAINTAINER="support@esacode.org"
 LABEL org.opencontainers.image.vendor="esacode - solutions numeriques"
 LABEL org.opencontainers.image.url="https://www.esacode.org/erp-services/"
 LABEL org.opencontainers.image.source="https://github.com/esacodeorg/docker-odoo-20"
