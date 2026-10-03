@@ -10,14 +10,10 @@ services:
       - db
     ports:
       - "8069:8069"
-      # Long polling : n'ecoute qu'avec workers > 0. A decommenter le jour ou
-      # vous passez en multi-processus.
-      # - "8072:8072"
     volumes:
       - ./odoo/config:/etc/odoo:rw
       - ./odoo/config/odoo.conf:/etc/odoo/odoo.conf
-      - ./odoo/addons:/mnt/extra-addons:rw # vos modules
-      - web_data:/var/lib/odoo # filestore + sessions
+      - ./odoo/addons:/mnt/extra-addons:rw # Uncomment this line if you have custom addons to add
     # logging:
     #   options:
     #     max-size: "10m"
@@ -27,7 +23,6 @@ services:
     container_name: postgres_17_server
     volumes:
       - ./odoo/config:/etc/odoo/db
-      - db_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=odoo
@@ -38,8 +33,4 @@ services:
     #     max-size: "10m"
     #     max-file: "3"
 
-# Volumes nommes : sans eux, Docker en cree des anonymes a chaque
-# recreation de conteneur, et la base d'hier devient introuvable.
-volumes:
-  db_data:
-  web_data:
+
